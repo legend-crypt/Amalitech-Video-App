@@ -1,6 +1,5 @@
 from core.models import *
 from core.serializers import *
-from core.senders.profile import *
 
 
 def get_user_information(email):

@@ -26,11 +26,11 @@ def email_verification(email: str, otp_length: int):
     subject = "Vmx Email Verification Code"
     pin = generate_token(otp_length)
 
-    sender = ""
+    sender = "Vmx <konadulordkweku@gmail.com>"
     receiver = [email]
     html_content = render_to_string(
         "core/verification_email.html",
-        {"pin": pin, "receiver": email},
+        {"pin": pin, "email": email},
     )
     text_content = strip_tags(html_content)
     email_obj = EmailMultiAlternatives(subject, text_content, sender, receiver)
@@ -52,12 +52,12 @@ def verification_confirmation_email(email):
     """
     subject = "VMx Email Address Verification Confirmation"
 
-    sender = ""
+    sender = "VMx <konadulordkweku@gmail.com>"
     receiver = [email]
 
     html_content = render_to_string(
         "core/verification_confirmation.html",
-        {"receiver": receiver},
+        {"email": email},
     )
     text_content = strip_tags(html_content)
     email = EmailMultiAlternatives(subject, text_content, sender, receiver)

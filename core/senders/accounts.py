@@ -6,17 +6,6 @@ import random, string
 UTC = pytz.UTC
 
 
-
-
-def generate_token(otp_length)-> str:
-    """Generates a random token
-
-    Returns:
-        str: token
-    """
-    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(otp_length))
-
-
 def create_user(email, password):
     """Creates a user
 
@@ -43,25 +32,25 @@ def create_verification_token(email, token):
         Verification: verification json object
     """
     time_generated = UTC.localize(datetime.now())
-    verification_code = Verficationtoken.objects.create(email=email, token=token, time=time_generated)
-    return verification_code
+    verification_token = VerificationToken.objects.create(email=email, token=token, time_generated=time_generated)
+    return verification_token
 
 
-def update_verification_code(verification_code, otp):
+def update_verification_token(verification_token, otp):
     """Updates a verification token
 
     Args:
-        verification_code (VerificationCode): verification code object
+        verification_token (Verificationtoken): verification token object
         otp (str): new otp
 
     Returns:
-        VerificationCode: updated verification code object
+        Verificationtoken: updated verification token object
     """
     time_generated = UTC.localize(datetime.now())
-    verification_code.token = otp
-    verification_code.time_generated = time_generated
-    verification_code.save()
-    return verification_code
+    verification_token.token = otp
+    verification_token.time_generated = time_generated
+    verification_token.save()
+    return verification_token
 
 
 def create_password_reset_token(email:str, token:str):
@@ -75,25 +64,22 @@ def create_password_reset_token(email:str, token:str):
         PasswordResetCode: passwordResetCode object
     """
     time_generated = UTC.localize(datetime.now())
-    password_code = PasswordResetToken.objects.create(email=email, token=token, time_generated=time_generated)
-    return password_code
+    password_token = PasswordResetToken.objects.create(email=email, token=token, time_generated=time_generated)
+    return password_token
 
 
-def update_password_reset_code(password_reset_code, otp):
+def update_password_reset_token(password_reset_token, otp):
     """Updates a password_reset token
 
     Args:
-        password_reset_code (PasswordResetCode): verification code object
+        password_reset_token (PasswordResettoken): verification token object
         otp (str): new otp
 
     Returns:
-        PasswordResetCode: updated password reset code object
+        PasswordResettoken: updated password reset token object
     """
     time_generated = UTC.localize(datetime.now())
-    password_reset_code.otp = otp
-    password_reset_code.time_generated = time_generated
-    password_reset_code.save()
-    return password_reset_code
-
-
-
+    password_reset_token.otp = otp
+    password_reset_token.time_generated = time_generated
+    password_reset_token.save()
+    return password_reset_token

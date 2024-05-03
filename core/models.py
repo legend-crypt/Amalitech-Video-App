@@ -53,7 +53,7 @@ class UserAccount(AbstractBaseUser, models.Model):
         return self.is_superuser
     
 
-class Verficationtoken(models.Model):
+class VerificationToken(models.Model):
     """User email verification token"""
     email = models.EmailField()
     token = models.CharField(max_length=255)
