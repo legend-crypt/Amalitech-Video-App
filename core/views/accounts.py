@@ -9,6 +9,7 @@ from core.utils import *
 from rest_framework_simplejwt.tokens import RefreshToken
 import json
 import os
+from django.contrib.auth import authenticate
 
 
 class AccountCreationViewSet(viewsets.ViewSet):
@@ -118,3 +119,42 @@ class AccountCreationViewSet(viewsets.ViewSet):
         return Response(context, status=status.HTTP_400_BAD_REQUEST)
     
     
+    def login(self, request):
+        """Sign in
+
+        Args:
+            request (http): http request
+
+        Returns:
+            Http Response: http response
+        """
+        email = request.data.get("email")
+        password = request.data.get("password")
+        if email is None or password is None:
+            context = {
+                "error": "Please provide both email and password"
+            }
+            return Response(context, status=status.HTTP_400_BAD_REQUEST)
+        user = get_user_by_email(email)
+        if not user:
+            context = {
+                "error": "User not found"
+            }
+            return Response(context, status=status.HTTP_404_NOT_FOUND)
+        user = authenticate(email=email, password=password)
+        if user is None:
+            context = {
+                "error": "Invalid credentials"
+            }
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+        if not user.verified:
+            context = {
+                "error": "Account not verified"
+            }
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+        refresh = RefreshToken.for_user(user)
+        context = {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+        }
+        return Response(context, status=status.HTTP_200_OK)   
