@@ -4,9 +4,15 @@ import { loginValidation } from '../utils/validation'
 import { Link } from 'react-router-dom'
 
 
+interface formValues {
+    email: string,
+    password: string,
+}
+
+
 function Login() {
-    const formik = useFormik({
-        initialValues: {
+    const formik = useFormik<formValues>({
+        initialValues:{
             'email': '',
             'password': ''
         },
