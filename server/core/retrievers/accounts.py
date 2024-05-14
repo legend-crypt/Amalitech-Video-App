@@ -40,7 +40,6 @@ def get_all_users():
     return serializer.data
 
 
-
 def get_verification_token(email):
     """Get verification token"""
     try:

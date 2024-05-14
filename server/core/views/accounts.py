@@ -16,27 +16,16 @@ class AccountCreationViewSet(viewsets.ViewSet):
     def create(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
-        print(password, email)
-        print(request.data)
         if email is None or password is None:
-            context = {
-                "error": "Please provide both email and password"
-            }
-            return Response(context, status=status.HTTP_400_BAD_REQUEST)
+            return Response("Please provide both email and password", status=status.HTTP_400_BAD_REQUEST)
         if UserAccount.objects.filter(email=email).exists():
-            context = {
-                "error": "Email already exists"
-            }
-            return Response(context, status=status.HTTP_208_ALREADY_REPORTED)
+            return Response("Email already exists", status=status.HTTP_208_ALREADY_REPORTED)
         
         user = create_user(email=email, password=password)
-        context = {
-            "detail": "User created successfully",
-        }
 
         thread = threading.Thread(target=email_verification, args=(email, 4))
         thread.start()
-        return Response(context, status=status.HTTP_201_CREATED)
+        return Response("User created successfully", status=status.HTTP_201_CREATED)
     
     def send_verification_email(self, request):
         """Send verification email
@@ -83,7 +72,7 @@ class AccountCreationViewSet(viewsets.ViewSet):
         if user.verified:
             return Response("Your account has already been verified", status=status.HTTP_208_ALREADY_REPORTED)
 
-        otp_detail = VerificationToken.objects.get(email=email)
+        otp_detail = VerificationToken.objects.get(email=email).first()
         if otp == otp_detail.token:
             if UTC.localize(datetime.now()) < otp_detail.time_generated + timedelta(
                 minutes=10
@@ -118,27 +107,15 @@ class AccountCreationViewSet(viewsets.ViewSet):
         email = request.data.get("email")
         password = request.data.get("password")
         if email is None or password is None:
-            context = {
-                "error": "Please provide both email and password"
-            }
-            return Response(context, status=status.HTTP_400_BAD_REQUEST)
+            return Response("Please provide both email and password", status=status.HTTP_400_BAD_REQUEST)
         user = get_user_by_email(email)
         if not user:
-            context = {
-                "error": "User not found"
-            }
-            return Response(context, status=status.HTTP_404_NOT_FOUND)
+            return Response("User not found", status=status.HTTP_404_NOT_FOUND)
         user = authenticate(email=email, password=password)
         if user is None:
-            context = {
-                "error": "Invalid credentials"
-            }
-            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+            return Response("Invalid credentials" , status=status.HTTP_401_UNAUTHORIZED)
         if not user.verified:
-            context = {
-                "error": "Account not verified"
-            }
-            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+            return Response("Account not verified", status=status.HTTP_401_UNAUTHORIZED)
         refresh = RefreshToken.for_user(user)
         context = {
             "refresh": str(refresh),
