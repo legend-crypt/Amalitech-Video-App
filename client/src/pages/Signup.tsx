@@ -1,8 +1,6 @@
-import React from 'react'
 import { useFormik } from 'formik'
 import { signUpValidation } from '../utils/validation'
 import axios from '../utils/axios'
-import { AxiosResponse } from 'axios'
 
 interface formValues {
     email: string,
@@ -25,25 +23,26 @@ function Signup() {
             sex: ''
         },
         validationSchema: signUpValidation,
-        onSubmit: (values) => {
-            const data = JSON.stringify(values)
+        onSubmit: () => {
             axios.post('register/', {
-                    data,
-                    headers: {
-                        'content-Type': 'application/json'
-                    }
+                email: formik.values.email,
+                password: formik.values.password
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             })
             .then((response) => {
                 if (response.status === 201) {
-                    alert(response.data.detail)
+                    alert(response.data.detail);
+                } else if (response.status === 208) {
+                    alert(response.data.error);
                 }
-                else if (response.status === 208)  {
-                    alert(response.data.error)
-                }
+                formik.resetForm()
             })
-            .catch ((error) => {
-                alert(error.response.data.error)
-            })
+            .catch((error) => {
+                alert(error.response.data.error);
+            });
         
         } 
     })

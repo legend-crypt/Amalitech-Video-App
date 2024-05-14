@@ -1,26 +1,41 @@
-import { object, ObjectSchema, string, ref } from 'yup'
+import { object, string, ref} from 'yup'
 
-interface formType {
-    email: string,
-    password: string,
-    confirmPassword?: string
-    // sex?: 'Male' | 'Female'
-}
-type LoginValidationSchema = Omit<formType, 'confirmPassword' | 'sex'>;
+// type LoginValidationSchema = Omit<formType, 'confirmPassword' | 'sex'>;
 
-const loginValidation: ObjectSchema<LoginValidationSchema> = object({
+const loginValidation = object({
     email: string().email('Invalid email address').required('Email is required'),
     password: string().required('Password is required'),
 });
 
 
-const signUpValidation: ObjectSchema<formType> = object({
+const signUpValidation = object({
     email: string().email('Invalid email address').required('Email is required'),
     password: string().required('Password is required'),
     confirmPassword: string().oneOf([ref('password')], 'Password must match'),
-    // sex: string<'Male' | 'Female'>().required('Sex is required')
+    sex: string<'Male' | 'Female'>().required('Sex is required')
     
 })
 
+const verificationValidation = object({
+    code: string().matches(/^[0-9]{4}$/, 'Must be exactly 4 digits').required('Please input your code')
+})
 
-export { signUpValidation, loginValidation };
+const requestVerificationValidation = object({
+    email: string().email('Invalid email').required('Email is required')
+})
+
+const passwordReset = object({
+    password: string().required('Password is required'),
+    confirmPassword: string().oneOf([ref('password')], 'Password must match').required('This field is required')
+})
+
+const passwordResetVerify = object({
+    code: string().matches(/^[0-9]{4}$/, 'Must be exactly 4 digits').required("Please input your code")
+})
+
+const passwordResetRequest = object({
+    email: string().email('Input a valid email').required('Email is required')
+})
+
+
+export { signUpValidation, loginValidation, verificationValidation, requestVerificationValidation, passwordReset, passwordResetRequest, passwordResetVerify};
