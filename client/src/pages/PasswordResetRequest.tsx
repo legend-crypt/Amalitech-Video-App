@@ -1,6 +1,10 @@
 import { useFormik } from 'formik';
 import { passwordResetRequest } from '../utils/validation';
 import axios from '../utils/axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AxiosResponse } from 'axios';
+
 
 interface formValues {
     email: string
@@ -8,29 +12,32 @@ interface formValues {
 
 
 function PasswordResetRequest() {
+    const navigate = useNavigate();
     const formik = useFormik<formValues>({
         initialValues: {
             email: ''
         },
         validationSchema: passwordResetRequest,
         onSubmit: () => {
-            axios.post('password-reset/request', {
+            axios.post('password-reset-request/', {
                 email: formik.values.email
             }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-            .then((response) => {
+            .then((response: AxiosResponse) => {
                 if (response.status === 200) {
-                    alert(response.data.detail);
+                    toast.success(response.data);
+                    navigate('/password-reset-verify')
+                    localStorage.setItem('userEmail', formik.values.email);
                 } else if (response.status === 400) {
-                    alert(response.data.error);
+                    toast.error(response.data.error)
                 }
                 formik.resetForm()
             })
             .catch((error) => {
-                alert(error.response.data.error);
+                toast.error(error.response?.data);
             });
         }
     })

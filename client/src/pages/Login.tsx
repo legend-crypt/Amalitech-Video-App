@@ -1,6 +1,9 @@
-import { useFormik } from 'formik'
-import { loginValidation } from '../utils/validation'
-import { Link } from 'react-router-dom'
+import { useFormik } from 'formik';
+import { loginValidation } from '../utils/validation';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from '../utils/axios';
+import { AxiosError, AxiosResponse } from 'axios';
+import { toast } from 'react-toastify';
 
 
 interface formValues {
@@ -10,14 +13,37 @@ interface formValues {
 
 
 function Login() {
+    const navigate = useNavigate();
     const formik = useFormik<formValues>({
         initialValues:{
             'email': '',
             'password': ''
         },
         validationSchema: loginValidation,
-        onSubmit: (values) => {
-            console.log(values)
+        onSubmit: () => {
+            axios.post('/login/', {
+                email: formik.values.email,
+                password: formik.values.password
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response: AxiosResponse) => {
+                if (response.status === 200) {
+                    toast.success('Login successful');
+                    navigate('/');
+                    try {
+                        localStorage.setItem('userInfo', JSON.stringify(response.data));
+                    }
+                    catch (error) {
+                        toast.error('Something went wrong')
+                    }
+                }
+            })
+            .catch((error: AxiosError) => {
+                toast.error(error.response?.data as string);
+            })
         }
         
     })
@@ -51,7 +77,7 @@ function Login() {
                     <button type='submit' className='w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mb-2'>sign in
                     </button>
                     <p className='text-sm font-light text-gray-500 dark:text-gray-400'>Don't have an account
-                    <Link to='' className='font-medium text-primary-600 hover:underline dark:text-primary-500 ml-1'>Sign up</Link>
+                    <Link to='/signup' className='font-medium text-primary-600 hover:underline dark:text-primary-500 ml-1'>Sign up</Link>
                     </p>
                 </form>
             </div>

@@ -2,6 +2,8 @@ import { useFormik } from 'formik';
 import { requestVerificationValidation } from '../utils/validation';
 import axios from '../utils/axios';
 import { AxiosError, AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 interface formValues {
@@ -9,6 +11,9 @@ interface formValues {
 }
 
 function VerificationRequest() {
+    const navigate = useNavigate();
+
+
     const formik = useFormik<formValues>({
         initialValues: {
             email: ''
@@ -24,15 +29,18 @@ function VerificationRequest() {
             })
             .then((response: AxiosResponse) => {
                 if (response.status === 200) {
-                    alert(response.data)
+                    toast.success(response.data);
+                    localStorage.setItem('userEmail', formik.values.email);
+                    navigate('/verification');
                 }
                 else if (response.status === 208) {
-                    alert(response.data)
+                    toast.success(response.data);
+                    navigate('/');
                 }
-                formik.resetForm()
+                formik.resetForm();
             })
             .catch((error: AxiosError) => {
-                alert(error.response?.data)
+                toast.error(error.response?.data as string)
             })
         }
     })

@@ -2,6 +2,8 @@ import { useFormik } from 'formik';
 import { verificationValidation } from '../utils/validation';
 import { AxiosError, AxiosResponse } from 'axios';
 import axios from '../utils/axios'
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 interface formValues {
     code: string
@@ -9,31 +11,30 @@ interface formValues {
 
 
 function Verification() {
+    const navigate = useNavigate();
     const formik = useFormik<formValues>({
         initialValues: {
             code: ''
         },
         validationSchema: verificationValidation,
         onSubmit: () => {
-            axios.post('verify-email/',
-            {
-                email: 'konadulordkweku@gmail.com',
+            axios.post('verify-email/', {
+                email: localStorage.getItem('userEmail') ?? '',
                 otp: formik.values.code
-            }
-            )
+            })
             .then((response: AxiosResponse) => {
                 if (response.status === 200) {
-                    alert(response.data.data)
+                    toast.success(response.data);
+                    navigate('/login')
                 }
                 else if (response.status === 208) {
-                    console.log(response.data)
-                    alert(response.data)
+                    toast.info(response.data)
+                    navigate('/')
                 }
                 formik.resetForm()
             })
             .catch((error: AxiosError) => {
-                alert(error.response?.data)
-                // console.log(error)
+                toast.info(error.response?.data as string)
             })
         }
     })

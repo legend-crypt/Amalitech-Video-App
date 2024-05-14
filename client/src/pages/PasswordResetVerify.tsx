@@ -1,6 +1,9 @@
 import { useFormik } from 'formik';
 import { passwordResetVerify } from '../utils/validation';
 import axios from '../utils/axios';
+import { AxiosError, AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 interface formValues {
@@ -8,29 +11,33 @@ interface formValues {
 }
 
 function PasswordResetVerify() {
+    const navigate = useNavigate();
     const formik = useFormik<formValues>({
         initialValues: {
             code: ''
         },
         validationSchema: passwordResetVerify,
         onSubmit: () => {
-            axios.post('password-reset/verify/', {
-                code: formik.values.code
+            axios.post('password-reset-verify/', {
+                otp: formik.values.code,
+                email: localStorage.getItem('userEmail') ?? ''
             }, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-            .then((response) => {
+            .then((response: AxiosResponse) => {
                 if (response.status === 200) {
-                    alert(response.data.detail);
+                    toast.success(response.data);
+                    navigate('/reset-password')
                 } else if (response.status === 400) {
-                    alert(response.data.error);
+                    toast.error(response.data);
                 }
                 formik.resetForm()
             })
-            .catch((error) => {
-                alert(error.response.data.error);
+            .catch((error: AxiosError) => {
+                toast.error(error.response?.data as string);
+                formik.resetForm();
             });
         }
     })
@@ -38,7 +45,7 @@ function PasswordResetVerify() {
   return (
     <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen  lg:py-0'>
         <div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-x-gray-700'>
-            <div className='p-6 space-y-4 md:space-y-6 sm:p-8'>``
+            <div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
                 <h1 className='text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white'>
                     Verify
                 </h1>
