@@ -5,3 +5,4 @@ from core.models import *
 admin.site.register(UserAccount)
 admin.site.register(VerificationToken)
 admin.site.register(PasswordResetToken)
+admin.site.register(Video)

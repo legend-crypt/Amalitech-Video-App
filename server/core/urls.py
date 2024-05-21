@@ -1,5 +1,6 @@
 from django.urls import path, re_path, include
 from core.views.accounts import *
+from core.views.videos import *
 from rest_framework_simplejwt.views import TokenRefreshView
 
 
@@ -12,7 +13,9 @@ urlpatterns = [
     path('password-reset/', AccountCreationViewSet.as_view({'post': 'password_reset'})),
     path('password-reset-verify/', AccountCreationViewSet.as_view({'post': 'password_reset_verify'})),
     path('password-reset-request/', AccountCreationViewSet.as_view({'post': 'password_reset_request'})),
-
-
+    
+    # Videos
+    path('videos/', VideoViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('videos/<uuid:pk>/', VideoViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
 ]
     
