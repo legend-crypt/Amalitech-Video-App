@@ -2,3 +2,5 @@ vidVenv/
 .env
 core/migrations/
 db.sqlite3
+videos
+thumbnails

@@ -8,15 +8,15 @@ from django.shortcuts import get_object_or_404
 
 class VideoViewSet(viewsets.ViewSet):
     # permission_classes = [IsAuthenticatedOrReadOnly]
-    def get_permissions(self):
-        """
-        Instantiates and returns the list of permissions that this view requires.
-        """
-        if self.action == 'list':
-            permission_classes = [IsAuthenticatedOrReadOnly]
-        else:
-            permission_classes = [IsAuthenticated, IsAdminUser]
-        return [permission() for permission in permission_classes]
+    # def get_permissions(self):
+    #     """
+    #     Instantiates and returns the list of permissions that this view requires.
+    #     """
+    #     if self.action == 'list':
+    #         permission_classes = [IsAuthenticatedOrReadOnly]
+    #     else:
+    #         permission_classes = [IsAuthenticated, IsAdminUser]
+    #     return [permission() for permission in permission_classes]
     
     def list(self, request):
         queryset = Video.objects.all()
