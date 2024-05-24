@@ -1,4 +1,4 @@
-import { object, string, ref} from 'yup'
+import { object, string, ref, mixed} from 'yup'
 
 // type LoginValidationSchema = Omit<formType, 'confirmPassword' | 'sex'>;
 
@@ -38,4 +38,11 @@ const passwordResetRequest = object({
 })
 
 
-export { signUpValidation, loginValidation, verificationValidation, requestVerificationValidation, passwordReset, passwordResetRequest, passwordResetVerify};
+const VideoValidation = object({
+    title: string().required('Input a title for the video'),
+    description: string(),
+    thumbnail: mixed(),
+    video: mixed().required('Upload a video')
+})
+
+export { signUpValidation, loginValidation, verificationValidation, requestVerificationValidation, passwordReset, passwordResetRequest, passwordResetVerify, VideoValidation};
