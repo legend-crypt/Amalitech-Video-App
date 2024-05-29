@@ -2,14 +2,14 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { VideoValidation } from '../utils/validation';
 import axios from '../utils/axios';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 
 
 interface formValues {
     title: string
     description: string
-    thumnail: null
+    thumbnail: null
     video: null
 }
 
@@ -18,7 +18,7 @@ function UploadVideo() {
         initialValues: {
             'title': '',
             'description': '',
-            'thumnail': null,
+            'thumbnail': null,
             'video': null
         },
         validationSchema: VideoValidation,
@@ -27,7 +27,7 @@ function UploadVideo() {
             axios.post('videos/', {
                 title: formik.values.title,
                 description: formik.values.description,
-                thumbnail: formik.values.thumnail,
+                thumbnail: formik.values.thumbnail,
                 video: formik.values.video
             }, {
                 headers: {
@@ -39,6 +39,7 @@ function UploadVideo() {
                 formik.resetForm();
             })
             .catch((error: any) => {
+                console.log(error.response?.data)
                 toast.error('Something wrong occured', error.response?.data)
             })
         }
@@ -82,7 +83,7 @@ function UploadVideo() {
                     <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
                     name='thumbnail'
                     onChange={(e) => hanldeFileUpload('thumbnail', e)}
-                    aria-describedby="thumnail_help" id="thumnail" type="file" />
+                    aria-describedby="thumnail_help" id="thumbnail" type="file" />
                 </div>
                 <div className='mb-2'>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="video">Upload Video</label>
