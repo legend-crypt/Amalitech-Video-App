@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from core.serializers import VideoSerializer
 from core.models import Video
 from django.shortcuts import get_object_or_404
+from core.serializers import VideoSerializer
 
 
 class VideoViewSet(viewsets.ViewSet):
@@ -24,14 +25,11 @@ class VideoViewSet(viewsets.ViewSet):
         return Response(serializer.data)
     
     def create(self, request):
-        title = request.data['title']
-        description = request.data['description']
-        video = request.FILES.get('video')
-        thumbnail = request.FILES.get('thumbnail')
-        video = Video.objects.create(title=title, description=description, video=video, thumbnail=thumbnail)
-        if video:
+        video_serializer = VideoSerializer(data=request.data)
+        if video_serializer.is_valid():
+            video_serializer.save()
             return Response('Video uploaded successfully', status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(video_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def retrieve(self, request, pk=None):
         queryset = Video.objects.all()
