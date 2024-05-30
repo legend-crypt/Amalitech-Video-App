@@ -11,6 +11,7 @@ import {Route, Routes} from 'react-router-dom'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadVideo from "./pages/UploadVideo";
+import Videos from "./pages/Videos";
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/password-reset-verify' element={<PasswordResetVerify />} />
         <Route path="/upload-video" element={<UploadVideo />} />
+        <Route path="/video-page/" element={<Videos />} />
       </Routes>
 
     </>
