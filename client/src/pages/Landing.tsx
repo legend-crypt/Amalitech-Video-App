@@ -16,9 +16,6 @@ const Landing = () => {
           designed to help you achieve your goals.
         </p>
 
-        {/* <Link to="contact" spy={true} smooth={true} duration={500}>
-          <Button title="Contact Us" />
-        </Link> */}
       </div>
 
       <div className=" w-full md:w-2/4">

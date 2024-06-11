@@ -1,9 +1,10 @@
-import { useFormik } from 'formik'
-import { signUpValidation } from '../utils/validation'
-import axios from '../utils/axios'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { AxiosError } from 'axios'
+import { useFormik } from 'formik';
+import { signUpValidation } from '../utils/validation';
+import axios from '../utils/axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
+import { Link } from 'react-router-dom';
 
 interface formValues {
     email: string,
@@ -46,7 +47,6 @@ function Signup() {
             .catch((error: AxiosError) => {
                 toast.error(error.response?.data as string)
             });
-        
         } 
     })
   return (
@@ -143,6 +143,9 @@ function Signup() {
                     dark:hover:bg-primary-700
                     dark:focus:ring-primary-800 mb-2'>Submit
                 </button>
+                <p className='text-sm font-light text-gray-500 dark:text-gray-400'>Already have an account
+                    <Link to='/login' className='font-medium text-primary-600 hover:underline dark:text-primary-500 ml-1'>Login</Link>
+                </p>
             </form>
         </div>
 

@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from '../utils/axios';
 import { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../store/slices/userAuth';
 
 
 interface formValues {
@@ -13,7 +15,10 @@ interface formValues {
 
 
 function Login() {
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const formik = useFormik<formValues>({
         initialValues:{
             'email': '',
@@ -33,6 +38,8 @@ function Login() {
                 if (response.status === 200) {
                     toast.success('Login successful');
                     navigate('/');
+                    console.log(response.data)
+                    dispatch(loginUser(response.data.userStatus))
                     try {
                         localStorage.setItem('userInfo', JSON.stringify(response.data));
                     }

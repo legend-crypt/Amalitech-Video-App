@@ -1,4 +1,4 @@
-import Landing from "./components/landing";
+import Landing from "./pages/Landing";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -12,6 +12,8 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UploadVideo from "./pages/UploadVideo";
 import Videos from "./pages/Videos";
+import RetriveVideo from "./pages/RetriveVideo";
+import ProtectedPage from "./components/ProtectedPage";
 
 
 
@@ -30,7 +32,8 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/password-reset-verify' element={<PasswordResetVerify />} />
         <Route path="/upload-video" element={<UploadVideo />} />
-        <Route path="/video-page/" element={<Videos />} />
+        <Route path="/videos/" element={<ProtectedPage Component={<Videos/>}/>} />
+        <Route path="video/:videoId" element={<ProtectedPage Component={<RetriveVideo />} />} />
       </Routes>
 
     </>

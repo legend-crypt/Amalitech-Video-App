@@ -22,9 +22,7 @@ function UploadVideo() {
             'video': null
         },
         validationSchema: VideoValidation,
-        onSubmit: (values) => {
-            console.log(values)
-            axios.post('videos/', {
+        onSubmit: (values) => {            axios.post('videos/', {
                 title: formik.values.title,
                 description: formik.values.description,
                 thumbnail: formik.values.thumbnail,
