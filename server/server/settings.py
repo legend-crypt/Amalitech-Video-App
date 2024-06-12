@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     "corsheaders",
+    'storages',
+
 
     # 'oauth2_provider',
     # 'social_django',
@@ -172,8 +174,28 @@ AUTH_USER_MODEL = 'core.UserAccount'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_URL = '/static/'
+# Media_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = 'media/'
 
-STATIC_URL = 'static/'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'firstspacedjango'
+AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION_STATIC =  'static/'
+AWS_LOCATION_MEDIA =  'media/'
+
+AWS_DEFAULT_ACL = 'public-read'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'core.storages.MediaStorage'
+STATIC_URL = '{}/{}'.format(AWS_S3_ENDPOINT_URL, AWS_LOCATION_STATIC)
+MEDIA_URL = '{}/{}'.format(AWS_S3_ENDPOINT_URL, AWS_LOCATION_MEDIA)
+STATIC_ROOT = 'static/'
+Media_ROOT = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

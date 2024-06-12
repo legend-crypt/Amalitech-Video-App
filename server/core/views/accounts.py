@@ -120,6 +120,7 @@ class AccountCreationViewSet(viewsets.ViewSet):
         context = {
             "refresh": str(refresh),
             "access": str(refresh.access_token),
+            "userStatus": user.is_superuser
         }
         return Response(context, status=status.HTTP_200_OK)   
     

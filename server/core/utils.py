@@ -17,7 +17,6 @@ def generate_token(otp_length):
     return "".join([random.choice(string.digits) for i in range(otp_length)])
 
 
-
 def email_verification(email: str, otp_length: int):
     """
     Send email verification code to new user

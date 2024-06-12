@@ -3,7 +3,6 @@ from core.views.accounts import *
 from core.views.videos import *
 from rest_framework_simplejwt.views import TokenRefreshView
 
-
 urlpatterns = [
     path('register/', AccountCreationViewSet.as_view({'post': 'create'})),
     path('send-verification-email/', AccountCreationViewSet.as_view({'post': 'send_verification_email'})),
