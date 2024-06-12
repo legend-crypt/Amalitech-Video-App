@@ -23,12 +23,6 @@ function Videos() {
             });
     }, []);
 
-    // useEffect(() => {
-    //     if (videosData.length > 0) {
-    //         setVideoInfo(videosData[currentIndex]);
-    //     }
-    // }, [videosData, currentIndex]);
-
     const videoSelectorHandler = (direction : string) => {
         if (direction === 'next' && currentIndex < videosData.length - 1) {
             setCurrentIndex(currentIndex + 1);
@@ -38,44 +32,45 @@ function Videos() {
     };
 
     return ( 
-        <div className='max-w-5xl mx-auto px-4'>
+        <div className='container mx-auto'>
 
             {videosData.length > 0 && (
             <>
                 <video 
-                    className="w-full border border-gray-200 rounded-lg"
+                    className="max-w-[1000px] border-none  rounded-lg ml-auto mr-auto py-4 w-full"
                     controls 
                     src={`http://127.0.0.1:8000${videosData[currentIndex]['video']}`} 
                 />
-                <div className='flex bg-violet-50 p-3'>
-                    <span className='flex gap-3'>
-                        {currentIndex !== 0 &&
-                            <button
-                                onClick={() => videoSelectorHandler('prev')}
-                                disabled={currentIndex === 0}
-                            >
-                                <img src={backArrow} alt="previos" />
-                            </button>
-                        }
-                        { currentIndex !== videosData.length - 1 ?
-                            <button
-                                onClick={() => videoSelectorHandler('next')}
-                                disabled={currentIndex === videosData.length - 1}
-                            >
-                                <img src={forwardArrow} alt="next" />
-                            </button> : null
-                        }
-                        <CopyToClipboard text={`http://localhost:5173/video/${videosData[currentIndex]['video_id']}`}
-                            onCopy={()=> toast.success('link copied')}>
-                            <button><img src={share} alt="share" /></button>
-                        </CopyToClipboard>
+                <div className='bg-white'>
+                    <div className='max-w-[1000px] ml-auto mr-auto flex py-5'>
+                        <span className='flex gap-3'>
+                            {currentIndex !== 0 &&
+                                <button
+                                    onClick={() => videoSelectorHandler('prev')}
+                                    disabled={currentIndex === 0}
+                                >
+                                    <img src={backArrow} alt="previos" />
+                                </button>
+                            }
+                            { currentIndex !== videosData.length - 1 ?
+                                <button
+                                    onClick={() => videoSelectorHandler('next')}
+                                    disabled={currentIndex === videosData.length - 1}
+                                >
+                                    <img src={forwardArrow} alt="next" />
+                                </button> : null
+                            }
+                            <CopyToClipboard text={`http://localhost:5173/video/${videosData[currentIndex]['video_id']}`}
+                                onCopy={()=> toast.success('link copied')}>
+                                <button><img src={share} alt="share" /></button>
+                            </CopyToClipboard>
                         
-                    </span>
-
-                    <span className='ml-auto'>
-                        <h1 className="text-2xl font-bold mb-4 text-sky-800">{videosData[currentIndex]['title']}</h1>
-                        <p className='text-sky-600'>{videosData[currentIndex]['description']}</p>
-                    </span>
+                        </span>
+                        <span className='ml-auto'>
+                            <h1 className="text-2xl font-bold mb-4 text-primary-950">{videosData[currentIndex]['title']}</h1>
+                            <p className='text-primary-950'>{videosData[currentIndex]['description']}</p>
+                        </span>
+                    </div>
                 </div>
             </>
             )}

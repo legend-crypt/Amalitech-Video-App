@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from '../utils/axios';
+import { toast } from 'react-toastify';
 
 
 interface Video {
@@ -23,23 +24,21 @@ function RetriveVideo() {
     useEffect(() => {
         axios.get(`/videos/${videoId}/`)
             .then((response) => {
-                console.log(response.data)
                 setVideoInfo(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                toast.error('Error fetching video data');
             });
     }, [videoId]);
 
 return (
-        <div className='max-w-5xl mx-auto px-4'>
-            <h1 className="text-2xl font-bold mb-4">{videoInfo.title}</h1>
+        <div className='max-w-[1000px] border-none  rounded-lg ml-auto mr-auto py-7 w-full'>
+            <h1 className="text-5xl font-bold mb-4 text-white">{videoInfo.title}</h1>
             <video
-                className="w-full border border-gray-200 rounded-lg"
+                className="w-full border-none rounded-lg"
                 controls
                 src={`http://127.0.0.1:8000${videoInfo.video}`}
             />
-            <p>{videoInfo.description}</p>
         </div>
     )
 }

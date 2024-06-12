@@ -19,7 +19,7 @@ import ProtectedPage from "./components/ProtectedPage";
 
 function App() {
   return (
-    <>
+    <div className="bg-primary-950">
       <Navbar />
       <ToastContainer />
       <Routes>
@@ -36,7 +36,7 @@ function App() {
         <Route path="video/:videoId" element={<ProtectedPage Component={<RetriveVideo />} />} />
       </Routes>
 
-    </>
+    </div>
   )
 }
 

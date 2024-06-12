@@ -5,6 +5,7 @@ import { FaTimes } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../store/store';
 import { logoutUser } from '../store/slices/userAuth';
+import logo from '../assets/AMIRI Davis.png';
 
 
 
@@ -22,8 +23,8 @@ function Navbar() {
   }
 
   return (
-    <nav className='flex justify-between p-5 items-center border-b bg-[#e7e7e7d1] nav'>
-      <h1 className='text-4xl logo'>navBAR.co</h1>
+    <nav className='flex justify-between p-3 items-center border-b bg-[#92e0fff8] nav'>
+      <Link to='/'><img className='w-10' src={logo} alt='logo'/></Link>
       <ul className='hidden  md:flex gap-6'>
         {
           !isUserLogin ? (
@@ -33,6 +34,7 @@ function Navbar() {
             </>
           ) : (
             <>
+              {userStatus && <li><Link to='/upload-video'>Upload Video</Link></li>}
               <li><Link to='/videos/'>Videos</Link></li>
               <li onClick={handleSignOut}><Link to='/'>Sign Out</Link></li>
             </>
@@ -59,6 +61,7 @@ function Navbar() {
             </>
           ) : (
             <>
+              {userStatus && <li className='hover:text-teal-700'><Link to='/upload-video'>Upload Video</Link></li>}
               <li className='hover:text-teal-700'><Link to='/videos/'>Videos</Link></li>
               <li className='hover:text-teal-700' onClick={handleClick}><Link to='/'>Sign Out</Link></li>
             </>
