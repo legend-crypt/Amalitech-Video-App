@@ -39,7 +39,8 @@ function Videos() {
                 <video 
                     className="max-w-[1000px] border-none  rounded-lg ml-auto mr-auto py-4 w-full"
                     controls 
-                    src={`http://127.0.0.1:8000${videosData[currentIndex]['video']}`} 
+                    src={videosData[currentIndex]['video']}
+                    poster={videosData[currentIndex]['thumbnail']}
                 />
                 <div className='bg-white'>
                     <div className='max-w-[1000px] ml-auto mr-auto flex py-5'>

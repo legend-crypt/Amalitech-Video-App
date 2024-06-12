@@ -37,7 +37,7 @@ return (
             <video
                 className="w-full border-none rounded-lg"
                 controls
-                src={`http://127.0.0.1:8000${videoInfo.video}`}
+                src={videoInfo.video}
             />
         </div>
     )
