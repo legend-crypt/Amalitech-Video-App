@@ -33,4 +33,4 @@ social-auth-core==4.5.4
 sqlparse==0.5.0
 typing_extensions==4.11.0
 urllib3==2.2.1
-gunicon==20.1.0
+gunicorn==22.0.0
