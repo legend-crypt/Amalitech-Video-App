@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFormik } from 'formik';
 import { VideoValidation } from '../utils/validation';
 import axios from '../utils/axios';
@@ -22,7 +21,7 @@ function UploadVideo() {
             'video': null
         },
         validationSchema: VideoValidation,
-        onSubmit: (values) => {            axios.post('videos/', {
+        onSubmit: () => {            axios.post('videos/', {
                 title: formik.values.title,
                 description: formik.values.description,
                 thumbnail: formik.values.thumbnail,
@@ -32,7 +31,7 @@ function UploadVideo() {
                     'Content-Type': 'multipart/form-data'
                 }
             })
-            .then((response: AxiosResponse) => {
+            .then(() => {
                 toast.success('Video uploaded Successfully');
                 formik.resetForm();
             })

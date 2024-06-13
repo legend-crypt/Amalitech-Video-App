@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from '../utils/axios';
 import { toast } from 'react-toastify';
 import forwardArrow from '../assets/forward_arrow.svg';
@@ -18,7 +18,7 @@ function Videos() {
                 console.log(response.data)
                 setVideosData(response.data);
             })
-            .catch((error) => {
+            .catch(() => {
                 toast.error('Error fetching videos data');
             });
     }, []);

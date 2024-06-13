@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from '../utils/axios';
 import { toast } from 'react-toastify';
@@ -26,7 +26,7 @@ function RetriveVideo() {
             .then((response) => {
                 setVideoInfo(response.data);
             })
-            .catch((error) => {
+            .catch(() => {
                 toast.error('Error fetching video data');
             });
     }, [videoId]);
