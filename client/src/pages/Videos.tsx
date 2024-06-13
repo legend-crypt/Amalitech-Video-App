@@ -44,7 +44,7 @@ function Videos() {
                 />
                 <div className='bg-white'>
                     <div className='max-w-[1000px] ml-auto mr-auto flex py-5'>
-                        <span className='flex gap-3'>
+                        <span className='w-1/3	flex gap-3'>
                             {currentIndex !== 0 &&
                                 <button
                                     onClick={() => videoSelectorHandler('prev')}
@@ -67,7 +67,7 @@ function Videos() {
                             </CopyToClipboard>
                         
                         </span>
-                        <span className='ml-auto'>
+                        <span className='w-3/4	ml-auto text-justify'>
                             <h1 className="text-2xl font-bold mb-4 text-primary-950">{videosData[currentIndex]['title']}</h1>
                             <p className='text-primary-950'>{videosData[currentIndex]['description']}</p>
                         </span>
