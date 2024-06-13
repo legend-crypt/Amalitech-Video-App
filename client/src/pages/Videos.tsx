@@ -60,7 +60,7 @@ function Videos() {
                                     <img src={forwardArrow} alt="next" />
                                 </button> : null
                             }
-                            <CopyToClipboard text={`http://localhost:5173/video/${videosData[currentIndex]['video_id']}`}
+                            <CopyToClipboard text={`https://amalitech-video-app.vercel.app/video/${videosData[currentIndex]['video_id']}`}
                                 onCopy={()=> toast.success('link copied')}>
                                 <button><img src={share} alt="share" /></button>
                             </CopyToClipboard>
