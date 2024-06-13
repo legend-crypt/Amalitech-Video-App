@@ -83,8 +83,12 @@ function Login() {
                     <button type='submit' className='w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mb-2'>sign in
                     </button>
                     <p className='text-sm font-light text-gray-500 dark:text-gray-400'>Don't have an account
-                    <Link to='/signup' className='font-medium text-primary-600 hover:underline dark:text-primary-500 ml-1'>Sign up</Link>
+                        <Link to='/signup' className='font-medium text-primary-600 hover:underline dark:text-primary-500 ml-1'>Sign up</Link>
                     </p>
+                    <p className='text-sm font-light text-gray-500 dark:text-gray-400'>Forgot your password?
+                        <Link to='/password-reset-request' className='font-medium text-primary-600 hover:underline dark:text-primary-500 ml-1'>Reset</Link>
+                    </p>
+
                 </form>
             </div>
         </div>
