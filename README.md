@@ -90,3 +90,7 @@ Paul Leonard is a video creator who needs a bespoke platform to upload videos fo
     ```sh
     npm run dev   # Or `yarn start` if you use Yarn
     ```
+
+
+# ERP
+![ERP](Amalitech_ERP.drawio.png)
