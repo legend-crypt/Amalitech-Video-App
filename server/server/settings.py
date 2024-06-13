@@ -179,6 +179,7 @@ AUTH_USER_MODEL = 'core.UserAccount'
 # Media_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = 'media/'
 
+
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'firstspacedjango'
@@ -199,11 +200,6 @@ Media_ROOT = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_OAUTH2_CLIENT_ID')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-    'https://www.googleapis.com/auth/userinfo.email',
-]
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

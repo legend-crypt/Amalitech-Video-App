@@ -5,30 +5,24 @@ from core.serializers import VideoSerializer
 from core.models import Video
 from django.shortcuts import get_object_or_404
 from core.serializers import VideoSerializer
+from core.utils import get_user_from_jwttoken
 
 
 class VideoViewSet(viewsets.ViewSet):
-    # permission_classes = [IsAuthenticatedOrReadOnly]
-    # def get_permissions(self):
-    #     """
-    #     Instantiates and returns the list of permissions that this view requires.
-    #     """
-    #     if self.action == 'list':
-    #         permission_classes = [IsAuthenticatedOrReadOnly]
-    #     else:
-    #         permission_classes = [IsAuthenticated, IsAdminUser]
-    #     return [permission() for permission in permission_classes]
-    
+
+    permission_classes = [IsAuthenticatedOrReadOnly]
     def list(self, request):
         queryset = Video.objects.all()
         serializer = VideoSerializer(queryset, many=True)
         return Response(serializer.data)
     
     def create(self, request):
-        video_serializer = VideoSerializer(data=request.data)
-        if video_serializer.is_valid():
-            video_serializer.save()
-            return Response('Video uploaded successfully', status=status.HTTP_201_CREATED)
+        user = get_user_from_jwttoken(request)
+        if user.is_superuser:
+            video_serializer = VideoSerializer(data=request.data)
+            if video_serializer.is_valid():
+                video_serializer.save()
+                return Response('Video uploaded successfully', status=status.HTTP_201_CREATED)
         return Response(video_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def retrieve(self, request, pk=None):

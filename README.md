@@ -17,7 +17,7 @@ Paul Leonard is a video creator who needs a bespoke platform to upload videos fo
 
 ### Admin Features:
 1. **Video Management:**
-   - Admins can upload videos with a title and description.
+   - Admins can upload videos with a title, description and thumbnail.
 
 ### Video Page:
 1. **Video Display:**
@@ -90,7 +90,3 @@ Paul Leonard is a video creator who needs a bespoke platform to upload videos fo
     ```sh
     npm run dev   # Or `yarn start` if you use Yarn
     ```
-
-## Project Structure
-
-### Backend (Django REST Framework)
