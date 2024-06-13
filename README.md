@@ -94,3 +94,7 @@ Paul Leonard is a video creator who needs a bespoke platform to upload videos fo
 
 # ERP
 ![ERP](Amalitech_ERP.drawio.png)
+
+
+# DEPLOYED LINK:
+- https://amalitech-video-app.vercel.app/

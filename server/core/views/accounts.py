@@ -72,7 +72,7 @@ class AccountCreationViewSet(viewsets.ViewSet):
         if user.verified:
             return Response("Your account has already been verified", status=status.HTTP_208_ALREADY_REPORTED)
 
-        otp_detail = VerificationToken.objects.get(email=email).first()
+        otp_detail = VerificationToken.objects.get(email=email)
         if otp == otp_detail.token:
             if UTC.localize(datetime.now()) < otp_detail.time_generated + timedelta(
                 minutes=10
