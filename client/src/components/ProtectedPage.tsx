@@ -15,7 +15,6 @@ const  ProtectedPage: React.FC<ProtectedPageProps> = ({ Component }: ProtectedPa
 
     useEffect(() => {
         if (!isUserLogin) {
-            console.log(isUserLogin)
             navigate('/login');
         }
     

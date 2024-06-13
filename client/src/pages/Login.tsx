@@ -38,7 +38,6 @@ function Login() {
                 if (response.status === 200) {
                     toast.success('Login successful');
                     navigate('/');
-                    console.log(response.data)
                     dispatch(loginUser(response.data.userStatus))
                     try {
                         localStorage.setItem('userInfo', JSON.stringify(response.data));

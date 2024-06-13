@@ -15,7 +15,6 @@ function Videos() {
         // Fetch videos data
         axios.get('/videos/')
             .then((response) => {
-                console.log(response.data)
                 setVideosData(response.data);
             })
             .catch(() => {

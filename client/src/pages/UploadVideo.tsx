@@ -35,7 +35,6 @@ function UploadVideo() {
                 formik.resetForm();
             })
             .catch((error: any) => {
-                console.log(error.response?.data)
                 toast.error('Something wrong occured', error.response?.data)
             })
         }
