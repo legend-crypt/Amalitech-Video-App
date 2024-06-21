@@ -4,7 +4,7 @@ from core.models import UserAccount, Video
 class UserAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount
-        fields = ['id', 'email', 'password']
+        fields = ['user_id', 'email', 'password']
         extra_kwargs = {'password': {'write_only': True, 'required': True}}
         
         

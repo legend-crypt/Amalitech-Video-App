@@ -1,0 +1,215 @@
+openapi: 3.0.3
+info:
+  title: VMX Api Platform
+  version: 0.0.0
+paths:
+  /api/login/:
+    post:
+      operationId: login_create
+      description: |-
+        Sign in
+
+        Args:
+            request (http): http request
+
+        Returns:
+            Http Response: http response
+      tags:
+      - login
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      parameters:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: No response body
+    
+  /api/password-reset/:
+    post:
+      operationId: password_reset_create
+      description: |-
+        Reset password
+
+        Args:
+            request (http): http request
+
+        Returns:
+            Http Response: http response
+      tags:
+      - password-reset
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/password-reset-request/:
+    post:
+      operationId: password_reset_request_create
+      description: |-
+        Request password reset
+
+        Args:
+            request (http): http request
+
+        Returns:
+            Http Response: http response
+      tags:
+      - password-reset-request
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/password-reset-verify/:
+    post:
+      operationId: password_reset_verify_create
+      description: |-
+        Verify password reset
+
+        Args:
+            request (http): http request
+
+        Returns:
+            Http Response: http response
+      tags:
+      - password-reset-verify
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/register/:
+    post:
+      operationId: register_create
+      tags:
+      - register
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          description: No response body
+  /api/send-verification-email/:
+    post:
+      operationId: send_verification_email_create
+      description: |-
+        Send verification email
+
+        Args:
+            request (http): http request
+
+        Returns:
+            http Response: http response
+      tags:
+      - send-verification-email
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/verify-email/:
+    post:
+      operationId: verify_email_create
+      description: |-
+        Verify email
+
+        Args:
+            request (http): http request
+
+        Returns:
+            Http Response: http response
+      tags:
+      - verify-email
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/videos/:
+    get:
+      operationId: videos_retrieve
+      tags:
+      - videos
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: videos_create
+      tags:
+      - videos
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          description: No response body
+  /api/videos/{id}/:
+    get:
+      operationId: videos_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - videos
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: videos_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - videos
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

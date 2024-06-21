@@ -48,11 +48,6 @@ INSTALLED_APPS = [
     "corsheaders",
     'storages',
 
-
-    # 'oauth2_provider',
-    # 'social_django',
-    # 'drf_social_oauth2',
-
 ]
 
 MIDDLEWARE = [
@@ -81,34 +76,20 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
-
             ],
         },
     },
 ]
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  # django-oauth-toolkit >= 1.0.0
-    #     'drf_social_oauth2.authentication.SocialAuthentication',
-    # )
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser',
-    ]
+    ],
 
 }
 
-# AUTHENTICATION_BACKENDS = (
-#     # Others auth providers (e.g. Facebook, OpenId, etc)
-#     # Google  OAuth2
-#     'social_core.backends.google.GoogleOAuth2',
-#     'drf_social_oauth2.backends.GoogleIdentityBackend',
-#     'django.contrib.auth.backends.ModelBackend',
-# )
 
 
 

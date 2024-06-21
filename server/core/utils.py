@@ -65,11 +65,11 @@ def verification_confirmation_email(email):
 
 def password_reset_email(email, otp_length):
     """
-    Confirm password reset
+    Confirm password reset email
     """
     subject = "VMx Password Reset Confirmation"
     pin = generate_token(otp_length)
-    sender = ""
+    sender = "VMx <konadulordkweku@gmail.com>"
     receiver = [email]
     html_content = render_to_string(
         "core/password_reset.html",

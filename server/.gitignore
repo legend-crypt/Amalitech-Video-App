@@ -1,6 +1,7 @@
 vidVenv/
 .env
 core/migrations/
-db.sqlite3
+# db.sqlite3
 videos
 thumbnails
+__pycache__

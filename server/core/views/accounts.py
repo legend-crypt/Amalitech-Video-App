@@ -50,8 +50,7 @@ class AccountCreationViewSet(viewsets.ViewSet):
             otp_object.delete()
         if email_verification(email, 4):
             return Response("Verification email sent successfully", status=status.HTTP_200_OK)
-        return Response("Could not send otp", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+        return Response("Could not send otp", status=status.HTTP_500_INTERNAL_SERVER_ERROR) 
     
     def verify_email(self, request):
         """Verify email
