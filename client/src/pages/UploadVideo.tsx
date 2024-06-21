@@ -27,15 +27,18 @@ function UploadVideo() {
                 video: formik.values.video
             }, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${localStorage.getItem('access')}`
+                },
+ 
             })
             .then(() => {
                 toast.success('Video uploaded Successfully');
                 formik.resetForm();
             })
             .catch((error: any) => {
-                toast.error('Something wrong occured', error.response?.data)
+                toast.error('Something wrong occured', error.response?.data);
+                console.log(localStorage.getItem('access'))
             })
         }
     })
